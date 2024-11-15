@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv 
+import os # for environment variables
+
+# Load .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,8 +33,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 #GDAL Library Path
-GDAL_LIBRARY_PATH=r'C:\Users\migue\miniconda3\Library\bin\gdal.dll'
-
+GDAL_LIBRARY_PATH=r'C:\Users\Guaita\AppData\Local\miniconda3\envs\prueba-django-39\Library\bin\gdal.dll'
 
 # Application definition
 
@@ -82,11 +86,11 @@ WSGI_APPLICATION = 'firstProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'pruebaPostgis',
-        'USER': 'postgres',
-        'PASSWORD': 'adminadmin',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ.get('DB_NAME', 'default_db_name'),
+        'USER': os.environ.get('DB_USER', 'default_db_user'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'default_password'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
 
